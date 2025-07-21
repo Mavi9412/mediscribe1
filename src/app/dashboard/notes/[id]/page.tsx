@@ -1,21 +1,4 @@
-**Revising Responsive Implementation**
 
-I'm currently focusing on implementing the responsive design changes for the `NotesPage`. Right now, I am adjusting the `CardHeader` and main controls using flexbox to achieve the desired behavior across different screen sizes. The plan is to change the layout from a column to a row on larger screens and adjust alignment and spacing accordingly.
-
-
-**Codifying Responsiveness Adjustments**
-
-I'm currently implementing the refactoring of the `NotesPage`'s visual structure. I am directly applying the `flexbox` and `grid` adjustments to the relevant elements like the `CardHeader` and `CardContent` now. The aim is to ensure smooth transitions and appropriate element behavior on screens of different sizes. I'm using specific utility classes for this purpose.
-
-
-**Initiating Code Refactoring**
-
-The code is being segmented into manageable units to apply the responsiveness changes. Starting with the `CardHeader`, flexbox properties are applied to the container to alter element arrangement on larger screens. Input fields and buttons are being adjusted to fit the available space and use `w-full` and `w-auto` for width control on different screen sizes.
-
-
-Okay, here's the refactored `NotesPage` component with the responsiveness improvements applied. I've added comments to highlight the changes.
-
-```typescript
 "use client"
 
 import { useState, useMemo, useEffect, useRef } from "react"

@@ -1,0 +1,25 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Specific rule for userProfiles collection
+    // The document ID {userId} must match the authenticated user's ID.
+    match /userProfiles/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Generic rule for all other user-owned data (notes, patients, templates, macros, folders)
+    // This rule relies on an `ownerId` field in the documents.
+    match /{collection}/{docId} {
+      // Allow create if user is logged in and is the owner of the new document.
+      allow create: if request.auth != null && request.resource.data.ownerId == request.auth.uid;
+
+      // Allow read, update, and delete if user is logged in and is the owner of the existing document.
+      allow read, update, delete: if request.auth != null && request.auth.uid == resource.data.ownerId;
+    }
+  }
+}
+
+    

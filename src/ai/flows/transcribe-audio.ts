@@ -54,11 +54,14 @@ const transcribeAudioFlow = ai.defineFlow(
         const { text } = await ai.generate({ model: modelToTry, prompt });
         return { transcript: text };
     } catch (error: any) {
-        if (error.message.includes('503') && modelToTry !== fallbackModel) {
+        // CORRECTED LOGIC: The redundant check has been removed.
+        // We only check for the '503' error to trigger the retry.
+        if (error.message.includes('503')) {
             console.warn(`Model ${modelToTry} failed. Retrying with ${fallbackModel}.`);
             const { text } = await ai.generate({ model: fallbackModel, prompt });
             return { transcript: text };
         }
+        // For any other kind of error, we re-throw it so it's not ignored.
         throw error;
     }
   }
